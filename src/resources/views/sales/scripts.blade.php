@@ -8,18 +8,18 @@
     (function() {
         'use strict';
         window.addEventListener('load', function() {
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.getElementsByClassName('needs-validation');
-        // Loop over them and prevent submission
-        var validation = Array.prototype.filter.call(forms, function(form) {
-            form.addEventListener('submit', function(event) {
-                if (form.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
-        });
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
         }, false);
     })();
 </script>
@@ -37,7 +37,7 @@
             }
 
             let xhr = new XMLHttpRequest();
-            xhr.open('GET', "https://api.postmon.com.br/v1/cep/"+this.value, true);
+            xhr.open('GET', "{{ route('zipcode.show') }}"+"?cep="+this.value, true);
             xhr.onreadystatechange = function()
             {
                 if (xhr.readyState == 4) {
@@ -52,7 +52,6 @@
 
         function populaCampos(data)
         {
-            console.log(data);
             document.getElementById("logradouro").value = data.logradouro;
             document.getElementById("cidade").value = data.cidade;
             document.getElementById("estado").value = data.estado;
@@ -66,9 +65,7 @@
                 elemento.parentNode.querySelectorAll(".invalid-feedback")[0].classList = 'invalid-feedback d-none';
                 return;
             }
-
             elemento.classList = 'form-control is-invalid';
             elemento.parentNode.querySelectorAll(".invalid-feedback")[0].classList = 'invalid-feedback is-invalid d-block';
-
         }
 </script>
