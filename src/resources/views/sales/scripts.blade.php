@@ -23,3 +23,52 @@
         }, false);
     })();
 </script>
+
+<script type="text/javascript">
+        document.getElementById("cep").addEventListener('blur', function()
+        {
+            this.value = this.value.replace(/[^0-9]/g,'');
+            const elemento = this;
+            if (this.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+                cssValidaInput(elemento, false);
+                return;
+            }
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', "https://api.postmon.com.br/v1/cep/"+this.value, true);
+            xhr.onreadystatechange = function()
+            {
+                if (xhr.readyState == 4) {
+                    populaCampos(JSON.parse(xhr.response));
+                    cssValidaInput(elemento, true);
+                    return;
+                }
+                cssValidaInput(elemento, false);
+            }
+            xhr.send();
+        });
+
+        function populaCampos(data)
+        {
+            console.log(data);
+            document.getElementById("logradouro").value = data.logradouro;
+            document.getElementById("cidade").value = data.cidade;
+            document.getElementById("estado").value = data.estado;
+            document.getElementById("bairro").value = data.bairro;
+        }
+
+        function cssValidaInput(elemento, valido)
+        {
+            if(valido){
+                elemento.classList = 'form-control is-valid';
+                elemento.parentNode.querySelectorAll(".invalid-feedback")[0].classList = 'invalid-feedback d-none';
+                return;
+            }
+
+            elemento.classList = 'form-control is-invalid';
+            elemento.parentNode.querySelectorAll(".invalid-feedback")[0].classList = 'invalid-feedback is-invalid d-block';
+
+        }
+</script>

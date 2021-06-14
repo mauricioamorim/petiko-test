@@ -12,5 +12,5 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::resource('', 'SalesController');
+Route::post('/store', 'SalesController@store');
+Route::get('/', 'SalesController@create');

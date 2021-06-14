@@ -1,7 +1,23 @@
-<div id="message-error">
-</div>
+@if ($errors->any())
+    <div id="message-error">
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+@endif
 
-<form class="needs-validation form"  id="checkout-form" role="form" method="POST" autocomplete="off" novalidate accept-charset="UTF-8" action="">
+@if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+@endif
+
+{{ Form::open(array('url' => 'store', 'class'=>'needs-validation form', 'id'=>'checkout-form', 'role'=>'form', 'method'=>'POST', 'autocomplete'=>'off', 'accept-charset'=>'UTF-8')) }}
+    @csrf
     <div class="row">
         <div class="col-md-3 d-none d-md-block">
             @include('sales.candidate')
@@ -13,7 +29,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="name">Nome completo</label>
-                            <input type="text" class="form-control" id="name" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" name="name" aria-describedby="name" placeholder="Ex. Mauricio de Amorim Alexandre da Silva" autocomplete="off" required autocapitalize="off" value="{{ $shopping->nome }}" required maxlength="35" minlength="4">
+                            <input type="text" class="form-control" id="nome" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" name="nome" aria-describedby="name" placeholder="Ex. Mauricio de Amorim A. da Silva" autocomplete="off" required autocapitalize="off" value="{{ $sales->nome }}" required maxlength="50" minlength="4">
                             <div class="invalid-feedback">
                                 Informe seu nome completo. Sem Numeros.
                             </div>
@@ -22,7 +38,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="cep">CEP</label>
-                            <input type="tel" class="form-control" id="cep"  name="cep" aria-describedby="name" placeholder="05303-000" autocomplete="off" required autocapitalize="off" value="">
+                            <input type="text" class="form-control" id="cep" min="8" max="8" pattern="^(\d){8}$" name="cep" aria-describedby="name" placeholder="05303000" autocomplete="off" required autocapitalize="off" value="{{ $sales->cep }}">
                             <div class="invalid-feedback" id="cep-invalido">
                                 Informe um CEP válido
                             </div>
@@ -31,7 +47,7 @@
                     <div class="col-8 col-md-9">
                         <div class="form-group">
                             <label for="logradouro">Logradouro</label><br>
-                            <input type="text" class="form-control" id="logradouro"  name="logradouro" aria-describedby="name" placeholder="Ex. R. Carlos Weber" autocomplete="off" required autocapitalize="off" value="">
+                            <input type="text" class="form-control" id="logradouro"  name="logradouro" aria-describedby="name" placeholder="Ex. R. Carlos Weber" autocomplete="off" required autocapitalize="off" value="{{ $sales->logradouro }}">
                             <div class="invalid-feedback">
                                 Informe o logradouro (Rua, Av, Travessa..)
                             </div>
@@ -40,7 +56,7 @@
                     <div class="col-4 col-md-2">
                         <div class="form-group">
                             <label for="numero">Nº</label><br>
-                            <input type="tel" class="form-control" id="numero"  name="numero" aria-describedby="name" placeholder="1319" autocomplete="off" autocapitalize="off" value="" maxlength="5" minlength="1" required>
+                            <input type="tel" class="form-control" id="numero" name="numero" aria-describedby="name" placeholder="1319" autocomplete="off" autocapitalize="off" value="" maxlength="5" minlength="1" required value="{{ $sales->numero }}">
                             <div class="invalid-feedback">
                                 Apenas números.
                             </div>
@@ -49,7 +65,7 @@
                     <div class="col-6 col-md-4">
                         <div class="form-group">
                             <label for="complemento">Compl</label><br>
-                            <input type="text" class="form-control" id="complemento" pattern="^.{0,45}$"  name="complemento" aria-describedby="name" placeholder="Apt./casa" autocomplete="off" autocapitalize="off" value="">
+                            <input type="text" class="form-control" id="complemento" pattern="^.{0,45}$"  name="complemento" aria-describedby="name" placeholder="Apt./casa" autocomplete="off" autocapitalize="off" value="{{ $sales->complemento }}">
                             <div class="invalid-feedback">
                                 Complemento maior que o permitido <u style="font-size: 10px">(45)</u>, porfavor diminua o complemento.
                             </div>
@@ -58,7 +74,7 @@
                     <div class="col-6 col-md-6">
                         <div class="form-group">
                             <label for="bairro">Bairro</label><br>
-                            <input type="text" class="form-control" id="bairro"  name="bairro" aria-describedby="name" placeholder="Ex. Vila Leopoldina" autocomplete="off" required autocapitalize="off" value="">
+                            <input type="text" class="form-control" id="bairro"  name="bairro" aria-describedby="name" placeholder="Ex. Vila Leopoldina" autocomplete="off" required autocapitalize="off" value="{{ $sales->bairro }}">
                             <div class="invalid-feedback">
                                 Obrigatório
                             </div>
@@ -67,7 +83,7 @@
                     <div class="col-6 col-md-6">
                         <div class="form-group">
                             <label for="cidade">Cidade</label><br>
-                            <input type="text" class="form-control" id="cidade"  name="cidade" aria-describedby="name" placeholder="Ex. São Paulo" autocomplete="off" required autocapitalize="off" value="">
+                            <input type="text" class="form-control" id="cidade"  name="cidade" aria-describedby="name" placeholder="Ex. São Paulo" autocomplete="off" required autocapitalize="off" value="{{ $sales->cidade }}">
                             <div class="invalid-feedback">
                                 Obrigatório
                             </div>
@@ -77,7 +93,7 @@
                         <div class="form-group">
                             <label for="estado">Estado</label><br>
                             <select class="form-control input-lg" id="estado" name="estado" required>
-                                <option selected></option>
+                                <option selected value="{{ $sales->estado }}">{{ $sales->estado }}</option>
                                 <option  value="AC">Acre</option>
                                 <option  value="AL">Alagoas</option>
                                 <option  value="AP">Amapá</option>
@@ -119,4 +135,4 @@
             </div>
         </div>
     </div>
-</form>
+{{ Form::close() }}

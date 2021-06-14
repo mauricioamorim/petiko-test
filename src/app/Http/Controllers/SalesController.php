@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Sales;
 use Illuminate\Http\Request;
+use App\Http\Requests\SalesPostRequest;
 
 class SalesController extends Controller
 {
@@ -14,9 +15,7 @@ class SalesController extends Controller
      */
     public function index()
     {
-        $Endereco = new Sales();
-        $shopping = $Endereco->getFillableAsStdClass();
-        return view('sales.base', compact('shopping'));
+        return $this->create();
     }
 
     /**
@@ -26,30 +25,41 @@ class SalesController extends Controller
      */
     public function create()
     {
-        return view('sales.base');
+        $Sales = new Sales();
+        $sales = $Sales->getFillableAsStdClass();
+        return view('sales.base', compact('sales'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\SalesPostRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SalesPostRequest $request)
     {
-        //
-        $shopping = "";
-        return view("sales.base", compact('shopping'));
+        $sales = new Sales();
+        $sales->nome  = $request->input('nome');
+        $sales->cep  = $request->input('cep');
+        $sales->logradouro  = $request->input('logradouro');
+        $sales->numero  = $request->input('numero');
+        $sales->complemento  = $request->input('complemento');
+        $sales->bairro  = $request->input('bairro');
+        $sales->cidade  = $request->input('cidade');
+        $sales->estado  = $request->input('estado');
+        $sales->save();
+        $request->session()->flash('status', 'Compra realizada com sucesso!');
 
-    }
+        return back();
+   }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Endereco  $endereco
+     * @param  \App\Sales  $sales
      * @return \Illuminate\Http\Response
      */
-    public function show(Endereco $endereco)
+    public function show(Sales $sales)
     {
         //
     }
@@ -57,10 +67,10 @@ class SalesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Endereco  $endereco
+     * @param  \App\Sales  $sales
      * @return \Illuminate\Http\Response
      */
-    public function edit(Endereco $endereco)
+    public function edit(Sales $sales)
     {
         //
     }
@@ -69,10 +79,10 @@ class SalesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Endereco  $endereco
+     * @param  \App\Sales  $sales
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Endereco $endereco)
+    public function update(Request $request, Sales $sales)
     {
         //
     }
@@ -80,10 +90,10 @@ class SalesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Endereco  $endereco
+     * @param  \App\Sales  $sales
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Endereco $endereco)
+    public function destroy(Sales $sales)
     {
         //
     }
