@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Endereco;
+use App\Sales;
 use Illuminate\Http\Request;
 
-class EnderecoShopping extends Controller
+class SalesController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Show the form for creating a new resource
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $Endereco = new Sales();
+        $shopping = $Endereco->getFillableAsStdClass();
+        return view('sales.base', compact('shopping'));
     }
 
     /**
@@ -24,10 +26,7 @@ class EnderecoShopping extends Controller
      */
     public function create()
     {
-        //
-        $teste = "";
-        return view("form", compact('teste'))->withTitle('New');
-
+        return view('sales.base');
     }
 
     /**
@@ -39,6 +38,9 @@ class EnderecoShopping extends Controller
     public function store(Request $request)
     {
         //
+        $shopping = "";
+        return view("sales.base", compact('shopping'));
+
     }
 
     /**

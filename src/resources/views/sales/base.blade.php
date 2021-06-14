@@ -1,13 +1,13 @@
 @extends('base')
 
 @section('head')
-    @include('shopping.head')
+    @include('sales.head')
 @endsection
 
 @section('content')
-    @include('shopping.form')
+    @include('sales.form')
 @endsection
 
 @section('scripts')
-    @include('shopping.scripts')
+    @include('sales.scripts')
 @endsection
