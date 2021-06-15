@@ -5,7 +5,36 @@
 @endsection
 
 @section('content')
-    @include('sales.form')
+    @if ($errors->any())
+        <div id="message-error">
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    @endif
+
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
+
+    <div class="row">
+        <div class="col-md-3 d-none d-md-block">
+            @include('sales.candidate')
+        </div>
+        <div class="col">
+            <div class="text-center pb-4">
+                <a href="/create"> <button class="btn btn-info rounded-pill btn-lg mr-3">Finalizar nova compra</button></a>
+                <a href="/"><button class="btn btn-warning rounded-pill btn-lg mr-3">Listar compras</button></a>
+            </div>
+            @include('sales.form')
+        </div>
+    </div>
 @endsection
 
 @section('scripts')

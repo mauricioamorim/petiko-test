@@ -13,5 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::post('/store', 'SalesController@store');
-Route::get('/', 'SalesController@create');
+Route::get('/create', 'SalesController@create');
+Route::get('/', 'SalesController@index');
 Route::get('/zipcode', 'ZipcodeController@show')->name('zipcode.show');

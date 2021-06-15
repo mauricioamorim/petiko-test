@@ -15,7 +15,10 @@ class SalesController extends Controller
      */
     public function index()
     {
-        return $this->create();
+        $Sales = new Sales();
+        $all_sales = $Sales->all();
+        var_dump($all_sales);die;
+        return view('sales.base', compact('sales'));
     }
 
     /**
