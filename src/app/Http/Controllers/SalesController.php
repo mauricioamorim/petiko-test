@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Sales;
 use Illuminate\Http\Request;
 use App\Http\Requests\SalesPostRequest;
+use App\Http\Libraries\ZipCodeLibrary;
 
 class SalesController extends Controller
 {
@@ -28,6 +29,7 @@ class SalesController extends Controller
      */
     public function create()
     {
+        $ZipCode = new ZipCodeLibrary();
         $view_content = "sales.form";
         return view('sales.base', compact('view_content'));
     }
@@ -49,11 +51,17 @@ class SalesController extends Controller
         $sales->bairro  = $request->input('bairro');
         $sales->cidade  = $request->input('cidade');
         $sales->estado  = $request->input('estado');
-        if($sales->save()) {
-            $request->session()->flash('status', 'Compra realizada com sucesso!');
-            return redirect( route('sales.list') );
-        };
-        return back()->withInput();;
+
+        $ZipCode = new ZipCodeLibrary();
+
+        $error = $ZipCode->compareRequestAddress($request->all());
+        if($error === false) {
+            if($sales->save()) {
+                $request->session()->flash('status', 'Compra realizada com sucesso!');
+                return redirect( route('sales.list') );
+            };
+        }
+        return back()->withInput()->withError($error);
    }
 
     /**
