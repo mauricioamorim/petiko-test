@@ -5,7 +5,7 @@
         <p class="card-text"><strong>Nome: </strong>Mauricio de Amorim</p>
         <p class="card-text"><strong class="frete-price">Idade: </strong>38</p>
         <p class="card-text"><strong>Estudante: </strong> Sim</p>
-        <p class="card-text"><strong>Características: </strong>Apaixonado por tecnologia, organizadom, pontual e proativo.</p>
+        <p class="card-text"><strong>Características: </strong>Apaixonado por tecnologia, organizado, pontual e proativo.</p>
         <p class="card-test"><strong class="total-price">Salário: </strong> A combinar</p>
         <hr>
         <p class="card-text text-center">

@@ -17,8 +17,8 @@ class SalesController extends Controller
     {
         $Sales = new Sales();
         $all_sales = $Sales->all();
-        var_dump($all_sales);die;
-        return view('sales.base', compact('sales'));
+        $view_content = "sales.list";
+        return view('sales.base', compact('sales', 'view_content'));
     }
 
     /**
@@ -28,9 +28,8 @@ class SalesController extends Controller
      */
     public function create()
     {
-        $Sales = new Sales();
-        $sales = $Sales->getFillableAsStdClass();
-        return view('sales.base', compact('sales'));
+        $view_content = "sales.form";
+        return view('sales.base', compact('view_content'));
     }
 
     /**
@@ -50,10 +49,11 @@ class SalesController extends Controller
         $sales->bairro  = $request->input('bairro');
         $sales->cidade  = $request->input('cidade');
         $sales->estado  = $request->input('estado');
-        $sales->save();
-        $request->session()->flash('status', 'Compra realizada com sucesso!');
-
-        return back();
+        if($sales->save()) {
+            $request->session()->flash('status', 'Compra realizada com sucesso!');
+            return redirect( route('sales.list') );
+        };
+        return back()->withInput();;
    }
 
     /**

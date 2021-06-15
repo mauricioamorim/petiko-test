@@ -29,10 +29,10 @@
         </div>
         <div class="col">
             <div class="text-center pb-4">
-                <a href="/create"> <button class="btn btn-info rounded-pill btn-lg mr-3">Finalizar nova compra</button></a>
-                <a href="/"><button class="btn btn-warning rounded-pill btn-lg mr-3">Listar compras</button></a>
+                <a href="{{ route('sales.create') }}"> <button class="btn btn-info rounded-pill btn-lg mr-3">Finalizar nova compra</button></a>
+                <a href="{{ route('sales.list') }}"><button class="btn btn-warning rounded-pill btn-lg mr-3">Listar compras</button></a>
             </div>
-            @include('sales.form')
+            @include( $view_content )
         </div>
     </div>
 @endsection
