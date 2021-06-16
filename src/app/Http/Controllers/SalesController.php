@@ -19,7 +19,7 @@ class SalesController extends Controller
         $Sales = new Sales();
         $all_sales = $Sales->all();
         $view_content = "sales.list";
-        return view('sales.base', compact('sales', 'view_content'));
+        return view('sales.base', compact('all_sales', 'view_content'));
     }
 
     /**
