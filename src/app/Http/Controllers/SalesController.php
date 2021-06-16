@@ -61,7 +61,7 @@ class SalesController extends Controller
                 return redirect( route('sales.list') );
             };
         }
-        return back()->withInput()->withError($error);
+        return back()->withInput()->withErrors([$error]);
    }
 
     /**

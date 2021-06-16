@@ -31,6 +31,9 @@ class ZipCodeLibrary
             if(!is_array($address_api)){
                 return "CEP não encontrado";
             }
+            if($address_api["logradouro"] == ""){
+                unset($address["logradouro"]);
+            }
             unset($address["_token"]);
             unset($address["nome"]);
             unset($address["complemento"]);
