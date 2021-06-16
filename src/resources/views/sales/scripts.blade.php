@@ -25,31 +25,33 @@
 </script>
 
 <script type="text/javascript">
-        document.getElementById("cep").addEventListener('blur', function()
-        {
-            this.value = this.value.replace(/[^0-9]/g,'');
-            const elemento = this;
-            if (this.checkValidity() === false) {
-                event.preventDefault();
-                event.stopPropagation();
-                cssValidaInput(elemento, false);
-                return;
-            }
-
-            let xhr = new XMLHttpRequest();
-            xhr.open('GET', "{{ route('zipcode.show') }}"+"?cep="+this.value, true);
-            xhr.onreadystatechange = function()
+        $input = document.getElementById("cep");
+        if($input != null){
+            $input.addEventListener('blur', function()
             {
-                if (xhr.readyState == 4) {
-                    populaCampos(JSON.parse(xhr.response));
-                    cssValidaInput(elemento, true);
+                this.value = this.value.replace(/[^0-9]/g,'');
+                const elemento = this;
+                if (this.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    cssValidaInput(elemento, false);
                     return;
                 }
-                cssValidaInput(elemento, false);
-            }
-            xhr.send();
-        });
 
+                let xhr = new XMLHttpRequest();
+                xhr.open('GET', "{{ route('zipcode.show') }}"+"?cep="+this.value, true);
+                xhr.onreadystatechange = function()
+                {
+                    if (xhr.readyState == 4) {
+                        populaCampos(JSON.parse(xhr.response));
+                        cssValidaInput(elemento, true);
+                        return;
+                    }
+                    cssValidaInput(elemento, false);
+                }
+                xhr.send();
+            });
+        }
         function populaCampos(data)
         {
             if(data.logradouro){
