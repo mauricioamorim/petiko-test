@@ -31,8 +31,11 @@ class ZipCodeLibrary
             if(!is_array($address_api)){
                 return "CEP não encontrado";
             }
-            if($address_api["logradouro"] == ""){
+            if(!isset($address_api["logradouro"]) || $address_api["logradouro"] == ""){
                 unset($address["logradouro"]);
+            }
+            if(!isset($address_api["bairro"]) || $address_api["bairro"] == ""){
+                unset($address["bairro"]);
             }
             unset($address["_token"]);
             unset($address["nome"]);

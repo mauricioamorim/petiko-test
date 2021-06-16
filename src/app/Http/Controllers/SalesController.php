@@ -17,7 +17,7 @@ class SalesController extends Controller
     public function index()
     {
         $Sales = new Sales();
-        $all_sales = $Sales->all();
+        $all_sales = $Sales->all()->sortByDesc("id");
         $view_content = "sales.list";
         return view('sales.base', compact('all_sales', 'view_content'));
     }
