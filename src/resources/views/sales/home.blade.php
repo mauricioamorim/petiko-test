@@ -1,4 +1,4 @@
-<h1 class="pt-4 pb-3 text-info">Etapa 1: Desafio do projeto técnico</h1>
+<h2 class="pt-4 pb-3 text-info">Etapa 1: Desafio do projeto técnico</h2>
 <div class="pl-4 text-justify">
     <p>
         Na Petiko lidamos diariamente com milhares de clientes espalhados por todo o Brasil. Nosso objetivo é entregar sempre a melhor experiência para esse assinante, seja com nossos produtos, serviços, e até mesmo na tranquilidade que suas compras chegarão em sua casa no momento correto, da forma mais ágil e eficiente possível.
