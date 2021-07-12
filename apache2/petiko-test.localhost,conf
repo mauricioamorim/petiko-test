@@ -1,0 +1,26 @@
+# caminho onde fica a configuração na pasta do apache2 linux
+# /etc/apache2/sites-available/petiko-test.localhost.conf
+# depois executar esse comando - sudo a2ensite petiko-test.localhost.conf
+# depois reiniciar o apache2 - sudo systemctl restart apache2
+
+<VirtualHost *:80>
+     ServerAdmin admin@petiko-test.localhost
+     ServerName petiko-test.localhost
+     DocumentRoot /var/www/petiko-test/src/public
+     DirectoryIndex index.php
+
+     <Directory /var/www/petiko-test/src/public>
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        Order allow,deny
+        allow from all
+     </Directory>
+
+    <FilesMatch \.php$>
+        # From the Apache version 2.4.10 and above, use the SetHandler to run PHP as a fastCGI process server
+         SetHandler "proxy:unix:/run/php/php7.2-fpm.sock|fcgi://localhost"
+    </FilesMatch>
+
+     ErrorLog ${APACHE_LOG_DIR}/petiko-test.localhost_error.log
+     CustomLog ${APACHE_LOG_DIR}/petiko-test.localhost_access.log combined
+</VirtualHost>
